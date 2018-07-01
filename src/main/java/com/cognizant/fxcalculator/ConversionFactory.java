@@ -9,15 +9,14 @@ import java.util.Map;
  * Factory class decides which handler to be invoked during run time (Factory Design Pattern)
  *
  * @author  Praveen Bandidoddi
- * @version 1.0
  * @since   2018-06-29
  */
 
 public class ConversionFactory {
 
-    final static Logger logger = Logger.getLogger(ConversionFactory.class);
+    private final static Logger logger = Logger.getLogger(ConversionFactory.class);
 
-    public Conversion getConversionHandler(ConversionRequest request) throws IOException,NullPointerException {
+    public Conversion getConversionHandler(ConversionRequest request) {
 
         Conversion handler=null;
         Map<String,String> conversionRates=ReadConfigurations.getConversionRates();

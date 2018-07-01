@@ -1,6 +1,7 @@
 package com.cognizant.fxcalculator;
 
 import org.apache.log4j.Logger;
+
 import java.io.IOException;
 
 
@@ -8,14 +9,13 @@ import java.io.IOException;
  * InverseConversionHandler handler class
  *
  * @author  Praveen Bandidoddi
- * @version 1.0
  * @since   2018-06-29
  */
 public class InverseConversionHandler implements Conversion {
 
-    final static Logger logger = Logger.getLogger(InverseConversionHandler.class);
+    private final static Logger logger = Logger.getLogger(InverseConversionHandler.class);
 
-    public Currency getConvertedAmount(ConversionRequest conversionRequest) throws IOException
+    public Currency getConvertedAmount(ConversionRequest conversionRequest)
     {
         Currency convertedCurrency=new Currency();
 

@@ -1,19 +1,19 @@
 package com.cognizant.fxcalculator;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 /**
  * LookupConversionHandler handler class
  *
  * @author  Praveen Bandidoddi
- * @version 1.0
  * @since   2018-06-29
  */
 public class LookupConversionHandler implements Conversion {
 
-    final static Logger logger = Logger.getLogger(LookupConversionHandler.class);
+    private final static Logger logger = Logger.getLogger(LookupConversionHandler.class);
 
     public Currency getConvertedAmount (ConversionRequest conversionRequest) throws IOException
     {
@@ -34,9 +34,10 @@ public class LookupConversionHandler implements Conversion {
 
         Map<String ,String> lookup=ReadConfigurations.getConversionLookup();
 
-        logger.debug("Entering cross currency conversion logic as no direct conversion available for :"+sourceCurrency+" & "+destinationCurrency);
         String lookupCurrency=sourceCurrency.concat(destinationCurrency);
         String inverseCurrency=destinationCurrency.concat(sourceCurrency);
+
+        logger.debug("Entering cross currency conversion logic as no direct conversion available for :" + sourceCurrency + " & " + destinationCurrency);
 
         firstConversionRequest= new ConversionRequest(sourceCurrency,lookup.containsKey(lookupCurrency)? lookup.get(lookupCurrency):lookup.get(inverseCurrency),amount);
         firstConvert = factory.getConversionHandler(firstConversionRequest);

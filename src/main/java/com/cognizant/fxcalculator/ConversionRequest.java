@@ -4,7 +4,6 @@ package com.cognizant.fxcalculator;
  * ConversionRequest POJO class to store conversion request details
  *
  * @author  Praveen Bandidoddi
- * @version 1.0
  * @since   2018-06-29
  */
 public class ConversionRequest {
@@ -13,7 +12,7 @@ public class ConversionRequest {
     public ConversionRequest() {
         this.sourceCurrency="";
         this.destinationCurrency="";
-        this.sourceAmount=new Float(0);
+        this.sourceAmount = 0.0f;
     }
 
     //Parameterised Constructor

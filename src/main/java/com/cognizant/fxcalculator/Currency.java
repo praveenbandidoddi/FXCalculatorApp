@@ -5,7 +5,6 @@ package com.cognizant.fxcalculator;
  * Currency POJO class to store converted currency name and value
  *
  * @author  Praveen Bandidoddi
- * @version 1.0
  * @since   2018-06-29
  */
 public class Currency {
@@ -13,7 +12,7 @@ public class Currency {
     //Default Constructor
     public Currency()
     {
-        this.amount=new Float(0);
+        this.amount = 0.0f;
         this.name="";
 
     }

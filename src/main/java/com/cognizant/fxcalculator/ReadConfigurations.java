@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Scanner;
@@ -16,17 +15,16 @@ import java.util.Scanner;
  * ReadConfigurations class has methods to read configurations from properties files and helper methods to read
  * console inputs and display outputs
  * @author  Praveen Bandidoddi
- * @version 1.0
  * @since   2018-06-29
  */
 public final class ReadConfigurations {
 
-    final static Logger logger = Logger.getLogger(ReadConfigurations.class);
+    private final static Logger logger = Logger.getLogger(ReadConfigurations.class);
 
     private static InputStream inputStream;
 
     //Read direct conversion rates into a Map from properties file
-    public static HashMap<String,String> getConversionRates() throws IOException {
+    public static HashMap<String,String> getConversionRates()  {
 
         HashMap<String,String> map = new HashMap<String,String>();
 
@@ -48,9 +46,15 @@ public final class ReadConfigurations {
             if(!map.isEmpty())
                 logger.info("Conversion Rates:"+map);
         } catch (Exception e) {
-            System.out.println("Exception: " + e);
+            logger.info("Exception: " + e);
         } finally {
-            inputStream.close();
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (Exception e) {
+                logger.info("Exception: " + e);
+            }
         }
 
         return map;
@@ -58,7 +62,7 @@ public final class ReadConfigurations {
     }
 
     //Read conversion lookup configuration into a Map from properties file
-    public static HashMap<String,String> getConversionLookup() throws IOException {
+    public static HashMap<String,String> getConversionLookup() {
 
         HashMap<String,String> map = new HashMap<String,String>();
 
@@ -82,7 +86,13 @@ public final class ReadConfigurations {
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         } finally {
-            inputStream.close();
+            try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (Exception e) {
+                logger.info("Exception: " + e);
+            }
         }
 
         return map;
@@ -95,10 +105,10 @@ public final class ReadConfigurations {
         ConversionRequest request = new ConversionRequest();
 
         //Read Inputs from Console: Source Currency, Amount and Destination Currency
-        System.out.println("Please enter conversion string: ");
+        //System.out.println("Please enter conversion string: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        String[] inputs = null;
+        String[] inputs;
 
         if ( null != input && !(input.length() < 3)) {
             logger.debug("Input read from console" + input);
@@ -122,7 +132,7 @@ public final class ReadConfigurations {
         DecimalFormat jdf = new DecimalFormat("0");
 
         if (null != convertedCurrency && null!=convertedCurrency.getAmount()  &&  0!=convertedCurrency.getAmount()) {
-            String amount = null;
+            String amount;
             if (request.getDestinationCurrency().equals("JPY"))
                 amount = jdf.format(convertedCurrency.getAmount());
             else
